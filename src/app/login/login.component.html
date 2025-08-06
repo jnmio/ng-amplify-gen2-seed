@@ -7,20 +7,22 @@
 -->
 
 <!-- Loading State While Checking Auth -->
-<!-- Shown while determining if user is already authenticated -->
-<div *ngIf="isCheckingAuth" class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+<!-- Shown while determining if user is already authenticated OR redirecting -->
+<div *ngIf="isCheckingAuth || isRedirecting" class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
   <div class="text-center">
     <!-- Bootstrap spinner for loading indication -->
     <div class="spinner-border text-primary mb-3" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
-    <p class="text-muted">Checking authentication status...</p>
+    <p class="text-muted">
+      {{ isRedirecting ? 'Redirecting to dashboard...' : 'Checking authentication status...' }}
+    </p>
   </div>
 </div>
 
-<!-- Authenticator (only show if not checking auth) -->
+<!-- Authenticator (only show if not checking auth AND not redirecting) -->
 <!-- AWS Amplify UI component that handles all authentication flows -->
-<div *ngIf="!isCheckingAuth">
+<div *ngIf="!isCheckingAuth && !isRedirecting">
   <!-- 
     amplify-authenticator provides:
     - Sign in form

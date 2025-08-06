@@ -40,6 +40,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   
   // Loading state to show spinner while checking authentication
   isCheckingAuth = true;
+  
+  // Flag to prevent UI flash during redirect
+  isRedirecting = false;
 
   constructor(
     private router: Router,                      // For navigation
@@ -69,6 +72,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (state.authStatus === 'authenticated') {
         console.log('✅ User authenticated - redirecting to dashboard');
         
+        // Set redirecting flag to prevent UI flash
+        this.isRedirecting = true;
+        
         // Update our auth service with the user info
         this.authService.setAuthenticated(state.user);
         
@@ -96,10 +102,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log('✅ User already authenticated:', user.userId);
         console.log('🔄 Redirecting to dashboard...');
         
+        // Set redirecting flag to prevent UI flash
+        this.isRedirecting = true;
+        
         // Update auth service state
         this.authService.setAuthenticated(user);
         
-        // Redirect to dashboard
+        // Redirect to dashboard immediately
         this.redirectToDashboard();
         return;
       }
@@ -107,22 +116,21 @@ export class LoginComponent implements OnInit, OnDestroy {
       // No authenticated user found - this is normal for new visitors
       console.log('ℹ️ No authenticated user found, showing login form');
     } finally {
-      // Always stop the loading spinner
-      this.isCheckingAuth = false;
+      // Only stop loading spinner if we're not redirecting
+      if (!this.isRedirecting) {
+        this.isCheckingAuth = false;
+      }
     }
   }
 
   /**
    * Redirect user to dashboard after successful authentication
    * 
-   * Uses a small timeout to ensure authentication state is fully established
-   * before navigation occurs.
+   * Uses immediate navigation for seamless user experience
    */
   private redirectToDashboard(): void {
-    // Small delay to ensure auth state is fully established
-    setTimeout(() => {
-      this.router.navigate(['/auth']);
-    }, 100);
+    // Navigate immediately to prevent UI flash
+    this.router.navigate(['/auth']);
   }
 
   /**
