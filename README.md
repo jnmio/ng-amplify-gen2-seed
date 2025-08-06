@@ -1,4 +1,4 @@
-# 🚀 Angular + AWS Amplify Gen2 Template - Complete Tutorial
+# 🚀 Angular + Amplify Gen2 Auth - Complete Tutorial
 
 This template provides a **production-ready foundation** for building secure Angular applications with AWS Amplify authentication. Perfect for developers who want to get started quickly with a clean, well-documented codebase.
 
