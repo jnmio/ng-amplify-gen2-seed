@@ -25,7 +25,7 @@ This template provides a **production-ready foundation** for building secure Ang
 ```bash
 # 1. Clone or download this template
 git clone <your-repo-url>
-cd ng-amplify-gen2-seed-with-auth
+cd ng-template-with-auth
 
 # 2. Install dependencies
 npm install

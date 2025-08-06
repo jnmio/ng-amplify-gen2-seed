@@ -45,7 +45,7 @@
       <div class="d-flex align-items-center">
         
         <!-- Login button - shown when user is NOT authenticated -->
-        <!-- The 'else loggedIn' part references the ng-amplify-gen2-seed below -->
+        <!-- The 'else loggedIn' part references the ng-template below -->
         <div *ngIf="!(authService.isAuthenticated$ | async); else loggedIn">
           <button class="btn btn-outline-primary me-2" routerLink="/login">
             Login
@@ -53,8 +53,8 @@
         </div>
         
         <!-- User info and logout - shown when user IS authenticated -->
-        <!-- This ng-amplify-gen2-seed is referenced by the 'else loggedIn' above -->
-        <ng-amplify-gen2-seed #loggedIn>
+        <!-- This ng-template is referenced by the 'else loggedIn' above -->
+        <ng-template #loggedIn>
           <!-- Display welcome message with user's login ID -->
           <span class="navbar-text me-3">
             Welcome, {{ (authService.currentUser$ | async)?.signInDetails?.loginId || 'User' }}
@@ -63,7 +63,7 @@
           <button class="btn btn-outline-danger btn-sm" (click)="logout()">
             Logout
           </button>
-        </ng-amplify-gen2-seed>
+        </ng-template>
       </div>
     </div>
   </div>
