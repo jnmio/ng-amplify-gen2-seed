@@ -1,0 +1,55 @@
+/* 
+  Landing Page Styles
+  
+  This CSS provides styling specific to the landing page component.
+  It creates an attractive, modern design to welcome new users.
+*/
+
+/* Main container for the entire landing page */
+.landing-page {
+  min-height: 100vh; /* Full viewport height */
+}
+
+/* Hero Section Styling */
+/* The main attention-grabbing section at the top */
+.hero-section {
+  /* Gradient background for visual appeal */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 60vh; /* Takes up 60% of viewport height */
+  display: flex;
+  align-items: center; /* Center content vertically */
+}
+
+/* Features Section Styling */
+.features-section {
+  background-color: #ffffff; /* Clean white background */
+}
+
+/* Individual feature cards */
+.feature-card {
+  /* Smooth hover transitions */
+  transition: transform 0.3s ease-in-out;
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+/* Hover effect for feature cards */
+.feature-card:hover {
+  transform: translateY(-5px); /* Lift card on hover */
+}
+
+/* Call-to-Action Section Styling */
+.cta-section {
+  /* Gradient background using Bootstrap primary colors */
+  background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+}
+
+/* Global Button Enhancements */
+.btn {
+  /* Smooth transitions for all interactions */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Subtle hover effect for all buttons */
+.btn:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+}

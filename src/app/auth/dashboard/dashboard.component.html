@@ -1,0 +1,69 @@
+<div class="dashboard-container">
+  <div class="container-fluid">
+    <!-- Dashboard Navigation -->
+    <div class="row">
+      <div class="col-md-3 col-lg-2">
+        <div class="nav flex-column nav-pills" role="tablist">
+          <a routerLink="/auth/todos" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <i class="fas fa-tasks me-2"></i> Todos
+          </a>
+          <a routerLink="/auth/profile" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <i class="fas fa-user me-2"></i> Profile
+          </a>
+          <a routerLink="/auth/settings" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <i class="fas fa-cog me-2"></i> Settings
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-md-9 col-lg-10">
+        <!-- Router outlet for nested authenticated routes -->
+        <router-outlet></router-outlet>
+        
+        <!-- Default dashboard content when no nested route is active -->
+        <div *ngIf="!isNestedRouteActive()" class="dashboard-welcome">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
+                  <h5 class="card-title">Todos</h5>
+                  <p class="card-text">Manage your tasks and todos</p>
+                  <a routerLink="/auth/todos" class="btn btn-primary">View Todos</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="fas fa-user fa-3x text-success mb-3"></i>
+                  <h5 class="card-title">Profile</h5>
+                  <p class="card-text">View and edit your profile</p>
+                  <a routerLink="/auth/profile" class="btn btn-success">View Profile</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="fas fa-cog fa-3x text-info mb-3"></i>
+                  <h5 class="card-title">Settings</h5>
+                  <p class="card-text">Configure your preferences</p>
+                  <a routerLink="/auth/settings" class="btn btn-info">View Settings</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

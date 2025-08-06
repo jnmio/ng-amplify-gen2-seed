@@ -1,0 +1,72 @@
+/* 
+  Main Application Styles
+  
+  This CSS file contains global styles that apply to the entire application.
+  It sets up the basic layout structure and navigation styling.
+*/
+
+/* Global Layout Setup */
+/* Ensure the page takes full height and uses flexbox for sticky footer */
+html, body {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Set up flexbox container for sticky footer layout */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Area Styling */
+.main-content {
+  flex: 1; /* Takes all available space, pushing footer to bottom */
+  padding-top: 76px; /* Account for fixed navbar height */
+  min-height: calc(100vh - 200px); /* Minimum height accounting for navbar and footer */
+}
+
+/* Navigation Styling */
+/* Brand/logo styling in the navigation bar */
+.navbar-brand {
+  font-weight: 600; /* Slightly bolder text for brand */
+}
+
+/* Active navigation link styling */
+.nav-link.active {
+  font-weight: 500;
+  color: #0d6efd !important; /* Bootstrap primary blue color */
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #f8f9fa; /* Light gray background */
+  border-top: 1px solid #dee2e6; /* Subtle top border */
+  margin-top: auto; /* Push footer to bottom using flexbox */
+}
+
+/* Footer link hover effects */
+.footer-links a:hover {
+  color: #0d6efd !important; /* Change to primary blue on hover */
+}
+
+/* Legacy jumbotron styling for backwards compatibility */
+.jumbotron {
+  border-radius: 0.5rem;
+}
+
+/* Button Enhancement */
+/* Add smooth transitions to all buttons */
+.btn {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Subtle hover effect for buttons */
+.btn:hover {
+  transform: translateY(-1px); /* Lift button slightly on hover */
+}
+
+/* Navbar Accessibility */
+/* Remove default focus outline on navbar toggle */
+.navbar-toggler:focus {
+  box-shadow: none;
+}
