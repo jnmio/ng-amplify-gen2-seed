@@ -1,15 +1,13 @@
-# 🚀 Angular + AWS Amplify Gen 2 Template - Complete Tutorial
+# 🚀 Angular + AWS Amplify Template - Complete Tutorial
 
-This template provides a **production-ready foundation** for building secure Angular applications with **AWS Amplify Gen 2** authentication. Perfect for developers who want to get started quickly with a clean, well-documented codebase.
-
-> **⚡ Using Amplify Gen 2**: This template uses the latest Amplify Gen 2 with TypeScript-first backend definitions. All commands use `npx ampx` instead of the older `amplify` CLI commands.
+This template provides a **production-ready foundation** for building secure Angular applications with AWS Amplify authentication. Perfect for developers who want to get started quickly with a clean, well-documented codebase.
 
 ## 📋 Table of Contents
 
 1. [Quick Start](#quick-start)
 2. [Project Structure](#project-structure)
 3. [Component Documentation](#component-documentation)
-4. [AWS Amplify Gen 2 Setup](#aws-amplify-setup-guide)
+4. [AWS Amplify Setup](#aws-amplify-setup)
 5. [Authentication Flow](#authentication-flow)
 6. [Security Features](#security-features)
 7. [Customization Guide](#customization-guide)
@@ -27,7 +25,7 @@ This template provides a **production-ready foundation** for building secure Ang
 ```bash
 # 1. Clone or download this template
 git clone <your-repo-url>
-cd ng-amplify-gen2-seed-with-auth
+cd ng-template-with-auth
 
 # 2. Install dependencies
 npm install
@@ -47,11 +45,11 @@ npm install -g @aws-amplify/cli
 # 2. Configure Amplify (first time only)
 amplify configure
 
-# 3. Deploy backend (Amplify Gen 2)
-npx ampx sandbox
+# 3. Deploy backend
+amplify push
 
-# 4. Generate frontend configuration (automatically done by sandbox)
-# The amplify_outputs.json file will be generated automatically
+# 4. Generate frontend configuration
+npx ampx generate outputs
 ```
 
 ## 📁 Project Structure
@@ -283,8 +281,6 @@ export const routes: Routes = [
 
 ## 🔐 AWS Amplify Setup Guide
 
-> **Important**: This template uses **Amplify Gen 2** (the latest version). If you see references to `amplify push` or `amplify add` commands elsewhere, those are for the older Gen 1. This template uses the new `npx ampx` commands and code-first approach.
-
 ### 1. Initial Setup
 
 ```bash
@@ -295,47 +291,71 @@ npm install -g @aws-amplify/cli
 amplify configure
 ```
 
-### 2. Backend Configuration (Amplify Gen 2)
-
-This template already includes a pre-configured Amplify Gen 2 backend in the `amplify/` folder:
-
-- `amplify/backend.ts` - Main backend definition
-- `amplify/auth/resource.ts` - Authentication configuration  
-- `amplify/data/resource.ts` - Data/API configuration
-
-### 3. Development Workflow
+### 2. Initialize Amplify Project
 
 ```bash
-# Start development sandbox (creates temporary AWS resources)
-npx ampx sandbox
+# In your project root
+amplify init
 
-# This will:
-# - Deploy your backend to a temporary environment
-# - Generate amplify_outputs.json automatically
-# - Watch for changes and redeploy as needed
+# Follow the prompts:
+# - Project name: your-app-name
+# - Environment: dev
+# - Default editor: your-preference
+# - Framework: angular
+# - Source directory: src
+# - Distribution directory: dist/your-app-name
+# - Build command: npm run build
+# - Start command: npm start
 ```
 
-### 4. Production Deployment
+### 3. Add Authentication
 
 ```bash
-# Deploy to production environment
-npx ampx pipeline-deploy --branch main --appId <your-app-id>
+# Add Cognito authentication
+amplify add auth
 
-# Or manually deploy backend
-npx ampx generate outputs --branch main
+# Choose:
+# - Default configuration
+# - Username (or email)
+# - No, I am done
 ```
 
-### 5. Customizing the Backend
+### 4. Add API (Optional - for todos)
 
-To modify authentication or data models, edit the files in the `amplify/` folder:
+```bash
+# Add GraphQL API
+amplify add api
 
-```typescript
-// amplify/auth/resource.ts - Customize authentication
-// amplify/data/resource.ts - Add/modify data models
-// amplify/backend.ts - Add new resources (storage, functions, etc.)
+# Choose:
+# - GraphQL
+# - API name: your-api-name
+# - Authorization: Amazon Cognito User Pool
+# - Additional auth types: No
+# - Conflict resolution: Auto Merge
+# - Schema template: Single object with fields
 ```
 
-After making changes, the sandbox will automatically redeploy.
+### 5. Deploy Backend
+
+```bash
+# Deploy all resources to AWS
+amplify push
+
+# This creates:
+# - Cognito User Pool (authentication)
+# - GraphQL API (if added)
+# - DynamoDB tables (if using API)
+```
+
+### 6. Generate Configuration
+
+```bash
+# Generate frontend configuration file
+npx ampx generate outputs
+
+# This creates: amplify_outputs.json
+# This file is automatically imported in main.ts
+```
 
 ## 🔄 Authentication Flow Diagram
 
@@ -402,36 +422,18 @@ Each component has its own `.css` file for isolated styling.
 
 ### Adding New AWS Services
 
-1. **Add Service to Backend** (Edit amplify/backend.ts):
-```typescript
-import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource';
-import { data } from './data/resource';
-import { storage } from './storage/resource'; // New service
-
-defineBackend({
-  auth,
-  data,
-  storage, // Add here
-});
+1. **Add Service to Amplify**:
+```bash
+amplify add storage  # For file uploads
+amplify add function # For Lambda functions
+amplify add hosting  # For deployment
 ```
 
-2. **Create Resource File** (e.g., amplify/storage/resource.ts):
-```typescript
-import { defineStorage } from '@aws-amplify/backend';
-
-export const storage = defineStorage({
-  name: 'myStorage',
-  access: (allow) => ({
-    'profile-pictures/*': [
-      allow.authenticated.to(['read', 'write'])
-    ]
-  })
-});
+2. **Update Configuration**:
+```bash
+amplify push
+npx ampx generate outputs
 ```
-
-3. **Sandbox Will Auto-Deploy**:
-The sandbox automatically detects changes and redeploys your backend.
 
 3. **Use in Components**:
 ```typescript
@@ -445,27 +447,24 @@ import { uploadData } from 'aws-amplify/storage';
 
 **1. "Amplify not configured" errors**
 ```bash
-# Solution: Make sure sandbox is running
-npx ampx sandbox
-
-# Or generate outputs for production
-npx ampx generate outputs --branch main
+# Solution: Generate outputs after backend deployment
+npx ampx generate outputs
 ```
 
 **2. Authentication not working**
 ```bash
-# Check if sandbox is running and backend is deployed
-npx ampx sandbox
+# Check if auth resource exists
+amplify status
 
-# Check the amplify/ folder for auth configuration
-# - amplify/auth/resource.ts should exist
-# - amplify/backend.ts should include auth
+# If not, add authentication
+amplify add auth
+amplify push
 ```
 
 **3. Todos not loading**
-- Ensure sandbox is running: `npx ampx sandbox`
+- Ensure you've deployed the API: `amplify push`
 - Check browser console for errors
-- Verify amplify_outputs.json exists and is up to date
+- Verify amplify_outputs.json exists
 
 **4. Build errors about missing modules**
 ```bash
@@ -473,11 +472,6 @@ npx ampx sandbox
 rm -rf node_modules package-lock.json
 npm install
 ```
-
-**5. Confusion about Amplify Gen 1 vs Gen 2**
-- If you see `amplify push` commands in tutorials, those are for Gen 1
-- This template uses Gen 2 with `npx ampx sandbox` and `npx ampx generate outputs`
-- Gen 2 uses TypeScript backend definitions instead of CLI wizards
 
 ### Debug Mode
 
@@ -492,23 +486,22 @@ ConsoleLogger.LOG_LEVEL = 'DEBUG';
 
 ### Production Deployment
 
-1. **Connect to Amplify Hosting**:
+1. **Configure Environment**:
 ```bash
-# Connect your GitHub repo to Amplify Hosting
-# This can be done through the AWS Console
+amplify env add prod
+amplify env checkout prod
+amplify push
 ```
 
-2. **Deploy Backend to Production**:
+2. **Deploy Frontend**:
 ```bash
-# Deploy backend to production branch
-npx ampx pipeline-deploy --branch main --appId <your-amplify-app-id>
+# Build for production
+npm run build
 
-# Or manually for production
-npx ampx generate outputs --branch main
+# Deploy to Amplify Hosting
+amplify add hosting
+amplify publish
 ```
-
-3. **Frontend Deployment**:
-Amplify Hosting will automatically build and deploy your frontend when you push to your connected branch.
 
 ### Advanced Features
 
