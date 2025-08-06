@@ -38,6 +38,7 @@ npm start
 
 ### Backend Setup (Required for full functionality)
 
+**For Development (Local Sandbox):**
 ```bash
 # 1. Install Amplify CLI
 npm install -g @aws-amplify/cli
@@ -45,12 +46,24 @@ npm install -g @aws-amplify/cli
 # 2. Configure Amplify (first time only)
 amplify configure
 
-# 3. Deploy backend
-amplify push
+# 3. Start local development sandbox
+npx ampx sandbox
 
-# 4. Generate frontend configuration
-npx ampx generate outputs
+# 4. In another terminal, start your app
+npm start
 ```
+
+**For Production:**
+```bash
+# 1. Create a new Amplify app in AWS Console
+# 2. Connect your GitHub repository
+# 3. Amplify will automatically deploy your backend on each push to main
+# 4. Download the amplify_outputs.json from your deployed app
+```
+
+> **Important**: After making changes to the backend (like authorization rules), you need to redeploy:
+> - **Development**: Restart your sandbox (`npx ampx sandbox`)
+> - **Production**: Push to GitHub (triggers auto-deployment)
 
 ## 📁 Project Structure
 
@@ -279,7 +292,9 @@ export const routes: Routes = [
   - `/auth/profile` → User profile
   - `/auth/settings` → User settings
 
-## 🔐 AWS Amplify Setup Guide
+## 🔐 AWS Amplify Gen 2 Setup Guide
+
+> **Important**: This template uses **Amplify Gen 2** with code-first backend definitions. No CLI wizards or `amplify push` commands are needed.
 
 ### 1. Initial Setup
 
@@ -287,58 +302,62 @@ export const routes: Routes = [
 # Install Amplify CLI globally
 npm install -g @aws-amplify/cli
 
-# Configure Amplify with your AWS credentials
+# Configure Amplify with your AWS credentials (one time setup)
 amplify configure
 ```
 
-### 2. Initialize Amplify Project
+### 2. Development Workflow
 
+This template already includes a pre-configured Amplify Gen 2 backend in the `amplify/` folder:
+
+- `amplify/backend.ts` - Main backend definition
+- `amplify/auth/resource.ts` - Authentication configuration  
+- `amplify/data/resource.ts` - Data/API configuration
+
+**Start Development Sandbox:**
 ```bash
-# In your project root
-amplify init
+# Start local development environment
+npx ampx sandbox
 
-# Follow the prompts:
-# - Project name: your-app-name
-# - Environment: dev
-# - Default editor: your-preference
-# - Framework: angular
-# - Source directory: src
-# - Distribution directory: dist/your-app-name
-# - Build command: npm run build
-# - Start command: npm start
+# This will:
+# - Deploy temporary AWS resources for development
+# - Generate amplify_outputs.json automatically
+# - Watch for changes and redeploy as needed
+# - Clean up resources when stopped
 ```
 
-### 3. Add Authentication
+### 3. Production Deployment
 
+**Option A: AWS Amplify Hosting (Recommended)**
+1. Go to [AWS Amplify Console](https://console.aws.amazon.com/amplify/)
+2. Click "New app" > "Host web app"
+3. Connect your GitHub repository
+4. Amplify will automatically:
+   - Detect this is a Gen 2 app
+   - Deploy backend on every push to main
+   - Build and deploy frontend
+   - Generate production `amplify_outputs.json`
+
+**Option B: Manual Backend Deployment**
 ```bash
-# Add Cognito authentication
-amplify add auth
+# Deploy backend to specific branch
+npx ampx pipeline-deploy --branch main --appId <your-app-id>
 
-# Choose:
-# - Default configuration
-# - Username (or email)
-# - No, I am done
+# Generate outputs for production
+npx ampx generate outputs --branch main
 ```
 
-### 4. Add API (Optional - for todos)
+### 4. Customizing the Backend
 
-```bash
-# Add GraphQL API
-amplify add api
+To modify authentication or data models, edit the TypeScript files in `amplify/`:
 
-# Choose:
-# - GraphQL
-# - API name: your-api-name
-# - Authorization: Amazon Cognito User Pool
-# - Additional auth types: No
-# - Conflict resolution: Auto Merge
-# - Schema template: Single object with fields
+```typescript
+// amplify/auth/resource.ts - Customize authentication
+// amplify/data/resource.ts - Add/modify data models  
+// amplify/backend.ts - Add new resources (storage, functions, etc.)
 ```
 
-### 5. Deploy Backend
-
-```bash
-# Deploy all resources to AWS
+The sandbox automatically redeploys when you save changes to these files.
 amplify push
 
 # This creates:
