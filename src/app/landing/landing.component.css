@@ -1,0 +1,208 @@
+/* 
+  Angular + Amplify Gen 2 Template Landing Page Styles
+  
+  Enhanced styling for the developer-focused landing page that showcases
+  the template features and attracts developers to use this starter.
+*/
+
+/* Main container for the entire landing page */
+.landing-page {
+  min-height: 100vh;
+}
+
+/* Hero Section with Enhanced Gradient */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-gradient-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+  background-size: 50px 50px;
+  animation: float 20s infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.hero-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Technology badges styling */
+.tech-badges .badge {
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 20px;
+  transition: transform 0.2s ease;
+}
+
+.tech-badges .badge:hover {
+  transform: scale(1.05);
+}
+
+/* Feature cards with enhanced styling */
+.feature-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  background: #ffffff;
+  position: relative;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+  border-color: rgba(0,123,255,0.2) !important;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #6f42c1, #e83e8c, #fd7e14);
+  border-radius: 3px 3px 0 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+/* Quick start section */
+.quickstart-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Terminal styling */
+.bg-dark {
+  background: #1e1e1e !important;
+  border-radius: 8px;
+  position: relative;
+  padding-top: 2.5rem !important;
+}
+
+.bg-dark::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 
+    20px 0 0 #ffbd2e,
+    40px 0 0 #27ca3f;
+}
+
+/* CTA Section with animated gradient */
+.cta-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button enhancements */
+.btn {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+  border: none;
+  color: #212529;
+  font-weight: bold;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #ff8f00 0%, #ffc107 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+}
+
+/* Color utilities */
+.text-purple {
+  color: #6f42c1 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 50vh;
+    padding: 3rem 0;
+  }
+  
+  .display-3 {
+    font-size: 2.5rem;
+  }
+  
+  .feature-card {
+    margin-bottom: 2rem;
+  }
+  
+  .tech-badges {
+    margin-bottom: 2rem;
+  }
+  
+  .tech-badges .badge {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states for keyboard navigation */
+.btn:focus,
+.feature-card:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Subtle hover effect for all buttons */
+.btn:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+}

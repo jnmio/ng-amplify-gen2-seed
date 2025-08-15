@@ -1,0 +1,106 @@
+<!-- 
+  Main Application Template
+  
+  This template provides the global layout structure for the entire application:
+  1. Fixed top navigation bar with authentication-aware menu
+  2. Main content area where all pages are displayed
+  3. Footer with application information
+-->
+
+<!-- Top Navigation Bar -->
+<!-- Fixed navigation that stays at the top of the page during scrolling -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    
+    <!-- Brand/Logo - clicking navigates to landing page -->
+    <a class="navbar-brand" routerLink="/landing">{{title}}</a>
+    
+    <!-- Mobile hamburger menu toggle button -->
+    <!-- Uses Bootstrap JavaScript to toggle mobile menu visibility -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Collapsible navigation content -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+      <!-- Left side navigation links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Home link - always visible -->
+        <li class="nav-item">
+          <!-- routerLinkActive="active" adds 'active' class when this route is current -->
+          <!-- [routerLinkActiveOptions]="{exact: true}" ensures exact path matching -->
+          <a class="nav-link" routerLink="/landing" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        </li>
+        
+        <!-- Dashboard link - only visible when user is authenticated -->
+        <!-- *ngIf with async pipe checks authentication status from AuthService -->
+        <li class="nav-item" *ngIf="(authService.isAuthenticated$ | async)">
+          <a class="nav-link" routerLink="/auth" routerLinkActive="active">Dashboard</a>
+        </li>
+      </ul>
+      
+      <!-- Right side user authentication area -->
+      <div class="d-flex align-items-center">
+        
+        <!-- Login button - shown when user is NOT authenticated -->
+        <!-- The 'else loggedIn' part references the ng-template below -->
+        <div *ngIf="!(authService.isAuthenticated$ | async); else loggedIn">
+          <button class="btn btn-outline-primary me-2" routerLink="/login">
+            Login
+          </button>
+        </div>
+        
+        <!-- User info and logout - shown when user IS authenticated -->
+        <!-- This ng-template is referenced by the 'else loggedIn' above -->
+        <ng-template #loggedIn>
+          <!-- Display welcome message with user's login ID -->
+          <span class="navbar-text me-3">
+            Welcome, {{ (authService.currentUser$ | async)?.signInDetails?.loginId || 'User' }}
+          </span>
+          <!-- Logout button that calls the logout() method -->
+          <button class="btn btn-outline-danger btn-sm" (click)="logout()">
+            Logout
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content Area -->
+<!-- This is where all page components are rendered based on the current route -->
+<main class="main-content">
+  <!-- Router outlet displays the component for the current route -->
+  <router-outlet />
+</main>
+
+<!-- Footer -->
+<!-- Application footer with copyright and links -->
+<footer class="footer mt-auto py-4">
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <!-- Left side - Copyright information -->
+      <div class="col-md-6 mb-3 mb-md-0">
+        <div class="footer-brand">
+          <!-- Dynamic copyright year using currentYear property -->
+          <span class="text-muted">© {{ currentYear }} <strong>My Angular App. All rights reserved.</strong></span>
+          <br>
+          <small class="text-muted">Built with Angular and AWS Amplify</small>
+        </div>
+      </div>
+      
+      <!-- Right side - Footer navigation links -->
+      <div class="col-md-6 text-md-end">
+        <div class="footer-links">
+          <a routerLink="/landing" class="text-muted text-decoration-none me-3">Home</a>
+          <!-- External links to AWS Amplify documentation -->
+          <a href="https://docs.amplify.aws/gen2/" target="_blank" class="text-muted text-decoration-none me-3">Documentation</a>
+          <a href="https://github.com/aws-amplify" target="_blank" class="text-muted text-decoration-none">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

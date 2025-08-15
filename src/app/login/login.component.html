@@ -1,0 +1,93 @@
+<!-- 
+  Login Page Template
+  
+  This template handles the authentication flow using AWS Amplify UI components.
+  It shows a loading state while checking authentication, then displays the
+  appropriate interface based on the user's current state.
+-->
+
+<!-- Loading State While Checking Auth -->
+<!-- Shown while determining if user is already authenticated OR redirecting -->
+<div *ngIf="isCheckingAuth || isRedirecting" class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+  <div class="text-center">
+    <!-- Bootstrap spinner for loading indication -->
+    <div class="spinner-border text-primary mb-3" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="text-muted">
+      {{ isRedirecting ? 'Redirecting to dashboard...' : 'Checking authentication status...' }}
+    </p>
+  </div>
+</div>
+
+<!-- Authenticator (only show if not checking auth AND not redirecting) -->
+<!-- AWS Amplify UI component that handles all authentication flows -->
+<div *ngIf="!isCheckingAuth && !isRedirecting">
+  <!-- 
+    amplify-authenticator provides:
+    - Sign in form
+    - Sign up form  
+    - Password reset
+    - MFA challenges
+    - Account verification
+    
+    The class="bg-light" adds Bootstrap styling
+  -->
+  <amplify-authenticator class="bg-light">
+    
+    <!-- Custom template for authenticated users -->
+    <!-- This template is shown when user successfully authenticates -->
+    <ng-template
+      amplifySlot="authenticated"
+      let-user="user"
+      let-signOut="signOut"
+    >
+      <!-- This should rarely be seen since we redirect authenticated users -->
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            
+            <!-- Card shown to already authenticated users -->
+            <!-- This is a fallback - normally users are redirected automatically -->
+            <div class="card">
+              <div class="card-body text-center">
+                
+                <!-- Success message -->
+                <h3 class="card-title mb-3">
+                  <span class="me-2">✅</span>
+                  Already Signed In
+                </h3>
+                
+                <!-- Welcome message with username -->
+                <p class="card-text mb-3">
+                  Welcome back, <strong>{{ user.username }}</strong>!
+                </p>
+                
+                <!-- Status message -->
+                <p class="text-muted mb-4">
+                  You are already authenticated. Redirecting to dashboard...
+                </p>
+                
+                <!-- Action buttons -->
+                <div class="d-grid gap-2">
+                  <!-- Navigate to landing page -->
+                  <button class="btn btn-primary" routerLink="/landing">
+                    <span class="me-2">🏠</span>
+                    Go to Landing
+                  </button>
+                  
+                  <!-- Sign out option -->
+                  <button class="btn btn-outline-secondary" (click)="signOut()">
+                    <span class="me-2">🚪</span>
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </amplify-authenticator>
+</div>
+
