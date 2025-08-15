@@ -8,54 +8,97 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 To start a local development server, run:
 
-```bash
-ng serve
+
+# ng-amplify-gen2-seed
+
+## Overview
+
+**ng-amplify-gen2-seed** is a comprehensive seed template for building new AWS Amplify Gen2 full stack applications with Angular (TypeScript v19.2+). It provides everything needed to start a modern, scalable app, including:
+
+- Angular 19.2+ frontend
+- AWS Amplify Gen2 backend (Cognito, AppSync/GraphQL, DynamoDB, S3)
+- Bootstrap 5.3 styling with a custom theme system
+- Dual authentication (standard users & advertisers)
+- AI-powered features (Grok, DALL-E, Stripe integration)
+- Comprehensive service and component architecture
+- Best practices for error handling, testing, and development workflows
+
+Use this template as the foundation for any new project requiring a robust, production-ready AWS Amplify Gen2 + Angular stack.
+
+---
+
+## Features
+
+- **Dual Authentication:** Supports both standard users and advertisers with separate flows and route protection.
+- **AI Campaign Management:** Grok AI and DALL-E integration for ad campaign generation and analytics.
+- **Bootstrap 5.3:** Responsive grid system and theming via custom CSS variables.
+- **Comprehensive Architecture:** Modular services, guards, and reusable components.
+- **Testing & Debugging:** Test dashboard, mock services, and enhanced logging.
+- **Amplify Gen2 Integration:** Backend defined in `amplify/backend.ts`, auto-configured frontend, and secure data access.
+
+---
+
+## Getting Started Tutorial
+
+Follow these steps to create your own app based on this seed template:
+
+### 1. Clone the Repository
+```powershell
+git clone https://github.com/jnmio/ng-amplify-gen2-seed.git
+cd ng-amplify-gen2-seed
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+### 2. Install Dependencies
+```powershell
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 3. Configure AWS Amplify Backend
+- Edit `amplify/backend.ts` to define your resources (auth, data, storage).
+- Use `npx ampx sandbox` for local Amplify development (limit usage to avoid AWS costs).
 
-```bash
-ng genere --help
+### 4. Start the Development Server
+```powershell
+npm start
+# Then open http://localhost:4200
 ```
 
-## Building
+### 5. Customize Components & Services
+- Follow patterns in `src/app/components/` and `src/app/services/`.
+- Use Bootstrap grid and theme variables (`var(--bg-primary)`, etc.).
+- Reference `help-files/COMPONENT_STANDARDIZATION.md` for best practices.
 
-To build the project run:
+### 6. Add Features
+- Implement new models in `amplify/backend/data/resource.ts`.
+- Extend authentication, campaign management, or AI features as needed.
 
-```bash
-ng build
+### 7. Test & Debug
+- Use `/test-dashboard` for authentication bypass and testing.
+- Run `npm test` for unit tests.
+- Use enhanced logging and error handling for troubleshooting.
+
+---
+
+## Project Structure
+
+```
+/amplify         # Amplify Gen2 backend (auth, data, storage)
+/src/app         # Angular app (components, services, guards)
+/public          # Static assets
+amplify_outputs.json  # Amplify frontend config
+angular.json     # Angular workspace config
+package.json     # Project dependencies
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Documentation & Help
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- See `help-files/` for detailed guides on component patterns, Bootstrap usage, security, AI campaign management, and more.
+- For Angular CLI help: [Angular CLI Overview and Command Reference](https://angular.io/cli)
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## License
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This template is provided as a starting point for your own projects. See LICENSE for details.
