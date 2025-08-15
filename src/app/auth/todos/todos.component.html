@@ -1,79 +1,18 @@
-<div class="todos-container">
-  <div class="row">
-    <div class="col-12">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3>My Todos</h3>
-        <button 
-          class="btn btn-primary" 
-          (click)="createTodo()" 
-          [disabled]="!amplifyConfigured">
-          <i class="fas fa-plus me-1"></i> Add Todo
-        </button>
-      </div>
-
-      <!-- Configuration Warning -->
-      <div *ngIf="!amplifyConfigured" class="alert alert-warning">
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        <strong>Amplify Backend Not Configured</strong>
-        <p class="mb-0 mt-2">To enable todo functionality, deploy your Amplify backend and run: <code>npx ampx generate outputs</code></p>
-      </div>
-
-      <!-- User Info -->
-      <div *ngIf="currentUser" class="alert alert-info">
-        <i class="fas fa-user me-2"></i>
-        Todos for: <strong>{{ currentUser.signInDetails?.loginId || currentUser.username || 'User' }}</strong>
-      </div>
-
-      <!-- Todos List -->
-      <div class="row" *ngIf="amplifyConfigured">
-        <div class="col-12" *ngIf="todos.length === 0">
-          <div class="text-center py-5">
-            <i class="fas fa-tasks fa-3x text-muted mb-3"></i>
-            <h5 class="text-muted">No todos yet</h5>
-            <p class="text-muted">Click "Add Todo" to create your first task!</p>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-4 mb-3" *ngFor="let todo of todos; trackBy: trackByTodoId">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start">
-                <div class="flex-grow-1">
-                  <p class="card-text">{{ todo.content }}</p>
-                  <small class="text-muted">
-                    Created: {{ todo.createdAt | date:'short' }}
-                  </small>
-                </div>
-                <button 
-                  class="btn btn-outline-danger btn-sm ms-2" 
-                  (click)="deleteTodo(todo.id)"
-                  title="Delete todo">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Help Text -->
-      <div class="mt-4">
-        <div class="card bg-light">
-          <div class="card-body">
-            <h6 class="card-title">
-              <i class="fas fa-info-circle me-2"></i>About Todos
-            </h6>
-            <p class="card-text small text-muted mb-1">
-              This todo application is secured with AWS Amplify authentication and uses AWS DynamoDB for data storage.
-            </p>
-            <p class="card-text small text-muted mb-0">
-              <a href="https://docs.amplify.aws/gen2/start/quickstart/" target="_blank" class="text-decoration-none">
-                Learn more about AWS Amplify →
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
+<!-- todos.component.html -->
+<main>
+    <h1>My todos</h1>
+    <button (click)="createTodo()">+ new</button>
+    <ul>
+        <li 
+            *ngFor="let todo of todos;">
+            {{ todo.content }}
+        </li>
+    </ul>
+    <div>
+        🥳 App successfully hosted. Try creating a new todo.
+        <br />
+        <a href="https://docs.amplify.aws/gen2/start/quickstart/">
+            Review next steps of this tutorial.
+        </a>
     </div>
-  </div>
-</div>
+</main>

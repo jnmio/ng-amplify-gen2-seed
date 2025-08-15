@@ -14,7 +14,10 @@ import { Component } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { Amplify } from 'aws-amplify';
+import outputs from '../../amplify_outputs.json';
 
+Amplify.configure(outputs);
 @Component({
   selector: 'app-root',
   // Import Angular modules needed for this component
