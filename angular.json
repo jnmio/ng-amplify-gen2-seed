@@ -27,11 +27,13 @@
               }
             ],
             "styles": [
-              "node_modules/@aws-amplify/ui-angular/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@aws-amplify/ui-angular/theme.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {
