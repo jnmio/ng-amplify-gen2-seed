@@ -60,12 +60,6 @@ npm install
 - Edit `amplify/backend.ts` to define your resources (auth, data, storage).
 - Use `npx ampx sandbox` for local Amplify development (limit usage to avoid AWS costs).
 
-### 4. Start the Development Server
-```powershell
-npm start
-# Then open http://localhost:4200
-```
-
 
 ### 5. Customize Components & Services
 - Follow patterns in `src/app/components/` and `src/app/services/`.
