@@ -30,7 +30,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   // Application title (can be used in templates)
-  title = 'Angular Amplify Gen2 Bootstrap 5 starter template';
+  title = 'MyApp';
   
   // Current year for copyright display in footer
   currentYear = new Date().getFullYear();

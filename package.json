@@ -1,6 +1,9 @@
 {
   "name": "ng-amplify-gen2-seed",
   "version": "0.0.0",
+  "description": "Angular project with AWS Amplify integration",
+  "author": "Jim Farmer jnm.io",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
