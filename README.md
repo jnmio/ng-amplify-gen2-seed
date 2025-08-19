@@ -20,8 +20,6 @@ To start a local development server, run:
 - AWS Amplify Gen2 backend (Cognito, AppSync/GraphQL, DynamoDB, S3)
 - Bootstrap 5.3 styling with a custom theme system
 - Simple Amplify authentication
-- AI-powered features (Grok, DALL-E, Stripe integration)
-- Comprehensive service and component architecture
 - Best practices for error handling, testing, and development workflows
 
 
@@ -33,7 +31,6 @@ Use this template as the foundation for any new project requiring a robust, prod
 ## Features
 
 - **Simple Amplify Authentication:** Secure user login and registration using AWS Cognito.
-- **AI Campaign Management:** Grok AI and DALL-E integration for ad campaign generation and analytics.
 - **Bootstrap 5.3:** Responsive grid system and theming via custom CSS variables.
 - **Comprehensive Architecture:** Modular services, guards, and reusable components.
 - **Testing & Debugging:** Test dashboard, mock services, and enhanced logging.
@@ -58,7 +55,7 @@ npm install
 
 ### 3. Configure AWS Amplify Backend
 - Edit `amplify/backend.ts` to define your resources (auth, data, storage).
-- Use `npx ampx sandbox` for local Amplify development (limit usage to avoid AWS costs).
+- Use `npx ampx sandbox` for local Amplify development.
 
 
 ### 5. Customize Components & Services
@@ -93,8 +90,7 @@ package.json     # Project dependencies
 
 ## Documentation & Help
 
-- See `help-files/` for detailed guides on component patterns, Bootstrap usage, security, AI campaign management, and more.
-- For Angular CLI help: [Angular CLI Overview and Command Reference](https://angular.io/cli)
+For Angular CLI help: [Angular CLI Overview and Command Reference](https://angular.io/cli)
 
 ---
 

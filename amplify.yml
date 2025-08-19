@@ -10,8 +10,6 @@ backend:
         - nvm install 20.19.4  
     # Install and use the required Node.js version for the build environment
         - nvm use 20.19.4
-        - npm config set registry https://registry.npmjs.org/
-    # Ensure npm uses the public registry (remove if using a private registry)
         - npm cache clean --force
     # Clean npm cache to avoid stale dependencies
         - npm ci --no-audit --fund false
