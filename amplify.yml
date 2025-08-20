@@ -3,6 +3,9 @@ backend:
   phases:
     build:
       commands:
+        - nvm install 20.19.0  
+        - nvm use 20.19.0
+        - npm install @parcel/watcher --save
         - npm ci --cache .npm --prefer-offline
         - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
@@ -14,7 +17,7 @@ frontend:
       commands:
         - npx ng build --configuration=production
   artifacts:
-    baseDirectory: dist/ng-amplify-gen2-seed/browser
+    baseDirectory: dist/c4g3/browser
     files:
       - '**/*'
   cache:
