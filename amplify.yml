@@ -1,8 +1,4 @@
 version: 1
-# Amplify Build Specification (amplify.yml)
-# This file defines the build and deployment steps for your AWS Amplify app.
-# It is split into backend and frontend phases, with commands for installing dependencies, building, and deploying.
-
 backend:
   phases:
     build:
@@ -15,23 +11,18 @@ backend:
         - npm ci --cache .npm --prefer-offline --no-audit --fund false || (npm cache clean --force && npm ci --no-audit --fund false)
         - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
-    # Deploy backend resources using Amplify Gen2 pipeline
   phases:
     preBuild:
       commands:
         - npx ng version
     build:
-    # Print Angular CLI version for debugging
       commands:
         - npx ng build --configuration=production
   artifacts:
-    # Build the Angular app in production mode
     baseDirectory: dist/ng-amplify-gen2-seed/browser
     files:
-  # The output directory for the built Angular app
       - '**/*'
   cache:
     paths:
       - .npm/**/*
-  # Cache npm and node_modules for faster builds
       - node_modules/**/*
