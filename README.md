@@ -53,6 +53,7 @@ cd ng-amplify-gen2-seed
 npm install
 ```
 
+
 ### 3. Configure AWS Amplify Backend
 - Edit `amplify/backend.ts` to define your resources (auth, data, storage).
 - Use `npx ampx sandbox` for local Amplify development.
